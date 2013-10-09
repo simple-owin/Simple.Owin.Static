@@ -1,11 +1,10 @@
-﻿namespace Simple.Owin
+﻿namespace Simple.Owin.Static
 {
     using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Threading;
     using System.Threading.Tasks;
-    using StaticMiddleware;
 
     public struct OwinEnv
     {

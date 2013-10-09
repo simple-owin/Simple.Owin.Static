@@ -1,7 +1,6 @@
-﻿namespace Simple.Owin.StaticMiddleware
+﻿namespace Simple.Owin.Static
 {
     using System;
-    using System.Collections.Generic;
     using System.Globalization;
     using System.IO;
     using System.Threading;

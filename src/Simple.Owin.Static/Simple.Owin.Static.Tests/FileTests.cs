@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Simple.Owin.StaticTests
+﻿namespace Simple.Owin.Static.Tests
 {
+    using System.Collections.Generic;
     using System.IO;
     using System.Threading;
-    using StaticMiddleware;
+    using System.Threading.Tasks;
+    using Static;
     using Xunit;
 
-    public class BuilderTests
+    public class FileTests
     {
         [Fact]
         public void ReturnsFile()
@@ -21,7 +17,7 @@ namespace Simple.Owin.StaticTests
                 const string path = "/Files/index.html";
                 var env = CreateEnv(path, stream);
 
-                var app = Static.AddFile(path).Build();
+                var app = Statics.AddFile(path).Build();
                 app(env, Complete).Wait();
 
                 stream.Position = 0;
@@ -38,7 +34,7 @@ namespace Simple.Owin.StaticTests
                 const string path = "/Files/index.html";
                 var env = CreateEnv("/", stream);
 
-                var app = Static.AddFileAlias(path, "/").Build();
+                var app = Statics.AddFileAlias(path, "/").Build();
                 app(env, Complete).Wait();
 
                 stream.Position = 0;
@@ -68,7 +64,7 @@ namespace Simple.Owin.StaticTests
             }
         }
 
-        private static Task Complete()
+        private static Task Complete(IDictionary<string, object> _)
         {
             var tcs = new TaskCompletionSource<int>();
             tcs.SetResult(0);

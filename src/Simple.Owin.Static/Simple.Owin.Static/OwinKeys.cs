@@ -1,4 +1,4 @@
-﻿namespace Simple.Owin.StaticMiddleware
+﻿namespace Simple.Owin.Static
 {
     internal static class OwinKeys
     {

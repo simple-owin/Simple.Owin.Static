@@ -1,4 +1,4 @@
-﻿namespace Simple.Owin.StaticMiddleware
+﻿namespace Simple.Owin.Static
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;

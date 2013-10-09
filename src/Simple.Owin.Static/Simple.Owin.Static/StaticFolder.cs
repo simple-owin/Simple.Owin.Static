@@ -3,13 +3,13 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    internal class StaticFile
+    internal class StaticFolder
     {
         private readonly string _path;
         private readonly string _alias;
         private readonly IDictionary<string, string> _headers;
 
-        public StaticFile(string path, string @alias, IDictionary<string, string> headers)
+        public StaticFolder(string path, string @alias, IDictionary<string, string> headers)
         {
             _path = MapPath.Map(path);
             _alias = alias;

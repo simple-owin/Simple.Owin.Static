@@ -1,4 +1,4 @@
-﻿namespace Simple.Owin.StaticMiddleware
+﻿namespace Simple.Owin.Static
 {
     using System;
     using System.IO;
