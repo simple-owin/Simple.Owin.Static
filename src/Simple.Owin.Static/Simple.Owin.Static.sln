@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simple.Owin.Static", "Simpl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simple.Owin.Static.Tests", "Simple.Owin.Static.Tests\Simple.Owin.Static.Tests.csproj", "{142ADC0A-37E1-4F4E-BF1B-FB0592DC51C9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simple.Owin.Static.Sandbox", "Simple.Owin.Static.Sandbox\Simple.Owin.Static.Sandbox.csproj", "{504E822D-A932-41A6-AA84-52E6569E4C48}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simple.Owin.Static.SandboxWeb", "Simple.Owin.Static.SandboxWeb\Simple.Owin.Static.SandboxWeb.csproj", "{52B6720E-08CD-4405-8349-DB0D13BA0B8D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,8 +25,19 @@ Global
 		{142ADC0A-37E1-4F4E-BF1B-FB0592DC51C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{142ADC0A-37E1-4F4E-BF1B-FB0592DC51C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{142ADC0A-37E1-4F4E-BF1B-FB0592DC51C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{504E822D-A932-41A6-AA84-52E6569E4C48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{504E822D-A932-41A6-AA84-52E6569E4C48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{504E822D-A932-41A6-AA84-52E6569E4C48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{504E822D-A932-41A6-AA84-52E6569E4C48}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52B6720E-08CD-4405-8349-DB0D13BA0B8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52B6720E-08CD-4405-8349-DB0D13BA0B8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52B6720E-08CD-4405-8349-DB0D13BA0B8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52B6720E-08CD-4405-8349-DB0D13BA0B8D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
 	EndGlobalSection
 EndGlobal

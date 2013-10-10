@@ -9,10 +9,12 @@ namespace Simple.Owin.Static
 
     public sealed class StaticBuilder
     {
+        private readonly List<Tuple<string, string>> _commonHeaders = new List<Tuple<string, string>>(); 
         private readonly Dictionary<string, StaticFile> _files = new Dictionary<string, StaticFile>(StringComparer.InvariantCultureIgnoreCase);
         private readonly Dictionary<string, StaticFolder> _folders = new Dictionary<string, StaticFolder>(StringComparer.InvariantCultureIgnoreCase);
         private KeyValuePair<string, StaticFolder>[] _slowFolders;
         private Func<string, StaticFolder> _staticFolderMatcher;
+        private IMimeTypeResolver _mimeTypeResolver = MimeTypeResolver.Instance;
 
         private StaticBuilder()
         {
@@ -26,6 +28,24 @@ namespace Simple.Owin.Static
         internal static StaticBuilder StartWithFolder(string path, string alias, string[] headers)
         {
             return new StaticBuilder().AddFolderAlias(path, alias, headers);
+        }
+
+        internal static StaticBuilder StartWithCommonHeaders(string[] headers)
+        {
+            return new StaticBuilder().SetCommonHeaders(headers);
+        }
+
+        public StaticBuilder SetCommonHeaders(params string[] headers)
+        {
+            _commonHeaders.AddRange(ParseHeaders(headers));
+            return this;
+        }
+
+        public StaticBuilder UseMimeTypeResolver(IMimeTypeResolver resolver)
+        {
+            if (resolver == null) throw new ArgumentNullException("resolver");
+            _mimeTypeResolver = resolver;
+            return this;
         }
 
         public StaticBuilder AddFile(string path, params string[] headers)
@@ -52,7 +72,7 @@ namespace Simple.Owin.Static
             return this;
         }
 
-        internal static IDictionary<string, string> ParseHeaders(string[] headers)
+        internal static IList<Tuple<string, string>> ParseHeaders(string[] headers)
         {
             var token = new[] {':'};
             if (headers == null || headers.Length == 0)
@@ -60,7 +80,7 @@ namespace Simple.Owin.Static
                 return null;
             }
 
-            return headers.Select(h => h.Split(token, 2)).ToDictionary(s => s[0].Trim(), s => s[1].Trim());
+            return headers.Select(h => h.Split(token, 2)).Select(s => Tuple.Create(s[0].Trim(), s[1].Trim())).ToList();
         }
 
         public Func<IDictionary<string, object>, Func<IDictionary<string, object>, Task>, Task> Build()
@@ -127,12 +147,16 @@ namespace Simple.Owin.Static
             return SendFile(env, path, staticFolder.Headers);
         }
 
-        private static Task SendFile(OwinEnv env, string path, IEnumerable<KeyValuePair<string,string>> headers)
+        private Task SendFile(OwinEnv env, string path, IEnumerable<Tuple<string,string>> headers)
         {
             var sendFile = env.SendFileAsync ?? SendFileShim.Shim(env);
-            foreach (var header in headers)
+            env.ResponseStatusCode = 200;
+            env.ResponseHeaders["Content-Type"] = new [] {_mimeTypeResolver.ForFile(path)};
+
+            // NOTE: The order here is important: common headers may be overwritten by item-specific headers
+            foreach (var header in _commonHeaders.Concat(headers))
             {
-                env.ResponseHeaders[header.Key] = new[] {header.Value};
+                env.ResponseHeaders[header.Item1] = new[] {header.Item2};
             }
             return sendFile(path, 0, null, env.CallCancelled);
         }
@@ -180,6 +204,12 @@ namespace Simple.Owin.Static
             }
 
             return null;
+        }
+
+        public static implicit operator Func<IDictionary<string, object>, Func<IDictionary<string, object>, Task>, Task>
+            (StaticBuilder builder)
+        {
+            return builder.Build();
         }
     }
 }

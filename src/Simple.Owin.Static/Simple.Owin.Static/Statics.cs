@@ -21,5 +21,10 @@
         {
             return StaticBuilder.StartWithFolder(path, alias, headers);
         }
+
+        public static StaticBuilder SetCommonHeaders(params string[] headers)
+        {
+            return StaticBuilder.StartWithCommonHeaders(headers);
+        }
     }
 }

@@ -2,6 +2,7 @@
 {
     using System;
     using System.IO;
+    using System.Linq;
     using System.Reflection;
 
     internal static class MapPath
@@ -15,17 +16,28 @@
 
         private static Func<string, string> Load()
         {
-            var hostingEnvironment = Type.GetType("System.Web.Hosting.HostingEnvironment, System.Web");
-            if (hostingEnvironment != null)
+            var systemWeb = TryGetSystemWeb();
+            if (systemWeb != null)
             {
-                var func =
-                    (Func<string, string>)
-                        hostingEnvironment.GetMethod("MapPath").CreateDelegate(typeof (Func<string, string>));
+                var hostingEnvironment = systemWeb.GetType("System.Web.Hosting.HostingEnvironment");
+                if (hostingEnvironment != null)
+                {
+                    var func =
+                        (Func<string, string>)
+                            hostingEnvironment.GetMethod("MapPath").CreateDelegate(typeof (Func<string, string>));
 
-                return path => func(path) ?? FallbackMapPath(path);
+                    return path => func(path) ?? FallbackMapPath(path);
+                }
             }
 
             return FallbackMapPath;
+        }
+
+        private static Assembly TryGetSystemWeb()
+        {
+            return
+                AppDomain.CurrentDomain.GetAssemblies()
+                    .FirstOrDefault(assembly => assembly.FullName.StartsWith("System.Web,"));
         }
 
         private static string FallbackMapPath(string virtualPath)
