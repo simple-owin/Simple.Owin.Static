@@ -1,7 +1,7 @@
 ﻿namespace Simple.Owin.Static.Tests
 {
     using Simple.Owin.Extensions;
-    using Static;
+    using Simple.Owin.Testing;
     using Xunit;
 
     public class FileTests
@@ -10,11 +10,11 @@
         public void ReturnsFile()
         {
             const string path = "/Files/index.html";
-            var context = OwinContext.Create();
-            context.Request.Path = path;
 
             var app = Statics.AddFile(path).Build();
-            app(context, null).Wait();
+            var host = new TestHost(app);
+            var request = TestRequest.Get(path);
+            var context = host.Process(request);
 
             context.Response.Body.Position = 0;
             var text = context.Response.Body.ReadAll();
@@ -24,12 +24,10 @@
         [Fact]
         public void ReturnsAliasFile()
         {
-            const string path = "/Files/index.html";
-            var context = OwinContext.Create();
-            context.Request.Path = "/";
-
-            var app = Statics.AddFileAlias(path, "/").Build();
-            app(context, null).Wait();
+            var app = Statics.AddFileAlias("/Files/index.html", "/").Build();
+            var host = new TestHost(app);
+            var request = TestRequest.Get("/");
+            var context = host.Process(request);
 
             context.Response.Body.Position = 0;
             var text = context.Response.Body.ReadAll();
