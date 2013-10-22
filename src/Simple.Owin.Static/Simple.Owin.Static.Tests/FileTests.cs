@@ -12,7 +12,7 @@
             const string path = "/Files/index.html";
 
             var app = Statics.AddFile(path).Build();
-            var host = new TestHost(app);
+            var host = new TestHostAndServer(app);
             var request = TestRequest.Get(path);
             var context = host.Process(request);
 
@@ -25,7 +25,7 @@
         public void ReturnsAliasFile()
         {
             var app = Statics.AddFileAlias("/Files/index.html", "/").Build();
-            var host = new TestHost(app);
+            var host = new TestHostAndServer(app);
             var request = TestRequest.Get("/");
             var context = host.Process(request);
 

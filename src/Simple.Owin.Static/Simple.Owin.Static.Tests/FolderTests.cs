@@ -10,7 +10,7 @@
         public void ReturnsFile()
         {
             var app = Statics.AddFolder("/Files").Build();
-            var host = new TestHost(app);
+            var host = new TestHostAndServer(app);
             var request = TestRequest.Get("/Files/index.html");
             var context = host.Process(request);
 
@@ -23,7 +23,7 @@
         public void ReturnsAliasFile()
         {
             var app = Statics.AddFolderAlias("/Files", "/").Build();
-            var host = new TestHost(app);
+            var host = new TestHostAndServer(app);
             var request = TestRequest.Get("/index.html");
             var context = host.Process(request);
 

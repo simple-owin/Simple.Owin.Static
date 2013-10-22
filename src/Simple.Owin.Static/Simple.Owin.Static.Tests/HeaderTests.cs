@@ -11,7 +11,7 @@
             const string path = "/Files/index.html";
 
             var app = Statics.AddFile(path, "X-Test: PASS").Build();
-            var host = new TestHost(app);
+            var host = new TestHostAndServer(app);
             var request = TestRequest.Get(path);
             var context = host.Process(request);
             
@@ -24,7 +24,7 @@
             const string path = "/Files/index.html";
 
             var app = Statics.SetCommonHeaders("X-Test: PASS").AddFile(path).Build();
-            var host = new TestHost(app);
+            var host = new TestHostAndServer(app);
             var request = TestRequest.Get(path);
             var context = host.Process(request);
 
@@ -37,7 +37,7 @@
             const string path = "/Files/index.html";
 
             var app = Statics.SetCommonHeaders("X-Common: PASS").AddFile(path, "X-File: PASS").Build();
-            var host = new TestHost(app);
+            var host = new TestHostAndServer(app);
             var request = TestRequest.Get(path);
             var context = host.Process(request);
 
@@ -51,7 +51,7 @@
             const string path = "/Files/index.html";
 
             var app = Statics.SetCommonHeaders("X-Common: FAIL").AddFile(path, "X-Common: PASS").Build();
-            var host = new TestHost(app);
+            var host = new TestHostAndServer(app);
             var request = TestRequest.Get(path);
             var context = host.Process(request);
 

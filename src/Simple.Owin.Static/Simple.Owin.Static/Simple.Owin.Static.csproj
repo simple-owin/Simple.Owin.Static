@@ -30,9 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Simple.Owin, Version=0.6.0.0, Culture=neutral, PublicKeyToken=5ab71016e2fbbfd7, processorArchitecture=MSIL">
+    <Reference Include="Simple.Owin, Version=0.7.0.0, Culture=neutral, PublicKeyToken=5ab71016e2fbbfd7, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Simple.Owin.0.6.0\lib\net45\Simple.Owin.dll</HintPath>
+      <HintPath>..\packages\Simple.Owin.0.7.0\lib\net45\Simple.Owin.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
