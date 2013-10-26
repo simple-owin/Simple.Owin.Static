@@ -1,11 +1,11 @@
-﻿// ReSharper disable once CheckNamespace
-namespace Simple.Owin.Static
+﻿namespace Simple.Owin.Static
 {
     using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
+    using Simple.Owin.Helpers;
 
     public sealed class StaticBuilder
     {
@@ -87,15 +87,15 @@ namespace Simple.Owin.Static
         {
             if (_files.Count == 0 && _folders.Count == 0)
             {
-                return (env, next) => next(env);
+                return TryNext;
             }
             if (_files.Count > 0 && _folders.Count == 0)
             {
                 return (envDict, next) =>
                 {
-                    var env = new OwinEnv(envDict);
-                    var path = env.RequestPath ?? "";
-                    return TryFile(path, env) ?? next(envDict);
+                    var context = OwinContext.Get(envDict);
+                    var path = context.Request.Path ?? "";
+                    return TryFile(path, context) ?? TryNext(envDict, next);
                 };
             }
 
@@ -105,35 +105,35 @@ namespace Simple.Owin.Static
             {
                 return (envDict, next) =>
                 {
-                    var env = new OwinEnv(envDict);
-                    var path = env.RequestPath ?? "";
-                    return TryFolder(path, env) ?? next(envDict);
+                    var context = OwinContext.Get(envDict);
+                    var path = context.Request.Path ?? "";
+                    return TryFolder(path, context) ?? TryNext(envDict, next);
                 };
             }
 
             return (envDict, next) =>
             {
-                var env = new OwinEnv(envDict);
-                var path = env.RequestPath ?? "";
-                return TryFile(path, env) ?? TryFolder(path, env) ?? next(envDict);
+                var context = OwinContext.Get(envDict);
+                var path = context.Request.Path ?? "";
+                return TryFile(path, context) ?? TryFolder(path, context) ?? TryNext(envDict, next);
             };
         }
 
-        private Task TryFile(string path, OwinEnv env)
+        private Task TryFile(string path, OwinContext context)
         {
             StaticFile staticFile;
             if (!_files.TryGetValue(path, out staticFile)) return null;
             if (!File.Exists(staticFile.Path))
             {
-                env.ResponseStatusCode = 404;
+                context.Response.Status = Status.Is.NotFound;
                 {
-                    return OwinHelpers.Completed();
+                    return TaskHelper.Completed();
                 }
             }
-            return SendFile(env, staticFile.Path, staticFile.Headers);
+            return SendFile(context, staticFile.Path, staticFile.Headers);
         }
 
-        private Task TryFolder(string path, OwinEnv env)
+        private Task TryFolder(string path, OwinContext context)
         {
             var staticFolder = _staticFolderMatcher(path);
 
@@ -144,21 +144,30 @@ namespace Simple.Owin.Static
 
             if (!File.Exists(path)) return null;
 
-            return SendFile(env, path, staticFolder.Headers);
+            return SendFile(context, path, staticFolder.Headers);
         }
 
-        private Task SendFile(OwinEnv env, string path, IEnumerable<Tuple<string,string>> headers)
+        private Task TryNext(IDictionary<string, object> envDict, Func<IDictionary<string, object>, Task> next)
         {
-            var sendFile = env.SendFileAsync ?? SendFileShim.Shim(env);
-            env.ResponseStatusCode = 200;
-            env.ResponseHeaders["Content-Type"] = new [] {_mimeTypeResolver.ForFile(path)};
+            if (next != null)
+            {
+                return next(envDict);
+            }
+            OwinContext.Get(envDict).Response.Status = Status.Is.NotFound;
+            return TaskHelper.Completed();
+        }
+
+        private Task SendFile(OwinContext context, string path, IEnumerable<Tuple<string, string>> headers)
+        {
+            context.Response.Status = Status.Is.OK;
+            context.Response.Headers.ContentType = _mimeTypeResolver.ForFile(path);
 
             // NOTE: The order here is important: common headers may be overwritten by item-specific headers
             foreach (var header in _commonHeaders.Concat(headers))
             {
-                env.ResponseHeaders[header.Item1] = new[] {header.Item2};
+                context.Response.Headers.SetValue(header.Item1,header.Item2);
             }
-            return sendFile(path, 0, null, env.CallCancelled);
+            return context.SendFile(path);
         }
 
         private Func<string, StaticFolder> ChooseStaticFolderMatcher()

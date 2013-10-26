@@ -12,7 +12,7 @@
 
         public StaticFolder(string path, string @alias, IList<Tuple<string, string>> headers)
         {
-            _path = MapPath.Map(path);
+            _path = PathMapping.Map(path);
             _alias = alias;
             _headers = headers;
         }

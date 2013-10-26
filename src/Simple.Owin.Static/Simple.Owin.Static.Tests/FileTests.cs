@@ -1,46 +1,37 @@
 ﻿namespace Simple.Owin.Static.Tests
 {
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using Static;
+    using Simple.Owin.Extensions;
+    using Simple.Owin.Testing;
     using Xunit;
 
-    public class FileTests : TestsBase
+    public class FileTests
     {
         [Fact]
         public void ReturnsFile()
         {
-            using (var stream = new MemoryStream())
-            {
-                const string path = "/Files/index.html";
-                var env = CreateEnv(path, stream);
+            const string path = "/Files/index.html";
 
-                var app = Statics.AddFile(path).Build();
-                app(env, Complete).Wait();
+            var app = Statics.AddFile(path).Build();
+            var host = new TestHostAndServer(app);
+            var request = TestRequest.Get(path);
+            var context = host.Process(request);
 
-                stream.Position = 0;
-                var text = ReadStream(stream);
-                Assert.Equal("<h1>Pass</h1>", text);
-            }
+            context.Response.Body.Position = 0;
+            var text = context.Response.Body.ReadAll();
+            Assert.Equal("<h1>Pass</h1>", text);
         }
         
         [Fact]
         public void ReturnsAliasFile()
         {
-            using (var stream = new MemoryStream())
-            {
-                const string path = "/Files/index.html";
-                var env = CreateEnv("/", stream);
+            var app = Statics.AddFileAlias("/Files/index.html", "/").Build();
+            var host = new TestHostAndServer(app);
+            var request = TestRequest.Get("/");
+            var context = host.Process(request);
 
-                var app = Statics.AddFileAlias(path, "/").Build();
-                app(env, Complete).Wait();
-
-                stream.Position = 0;
-                var text = ReadStream(stream);
-                Assert.Equal("<h1>Pass</h1>", text);
-            }
+            context.Response.Body.Position = 0;
+            var text = context.Response.Body.ReadAll();
+            Assert.Equal("<h1>Pass</h1>", text);
         }
     }
 }

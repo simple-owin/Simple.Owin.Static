@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.20827.3
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simple.Owin.Static", "Simple.Owin.Static\Simple.Owin.Static.csproj", "{1CCE1A32-824C-49A1-9ED0-7D5FA854D5DF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simple.Owin.Static.Tests", "Simple.Owin.Static.Tests\Simple.Owin.Static.Tests.csproj", "{142ADC0A-37E1-4F4E-BF1B-FB0592DC51C9}"
@@ -36,8 +34,5 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(Performance) = preSolution
-		HasPerformanceSessions = true
 	EndGlobalSection
 EndGlobal
