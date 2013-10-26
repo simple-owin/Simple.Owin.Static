@@ -159,7 +159,6 @@
 
         private Task SendFile(OwinContext context, string path, IEnumerable<Tuple<string, string>> headers)
         {
-            var sendFile = context.GetSendFileAsync();
             context.Response.Status = Status.Is.OK;
             context.Response.Headers.ContentType = _mimeTypeResolver.ForFile(path);
 
@@ -168,7 +167,7 @@
             {
                 context.Response.Headers.SetValue(header.Item1,header.Item2);
             }
-            return sendFile(path, 0, null, context.CancellationToken);
+            return context.SendFile(path);
         }
 
         private Func<string, StaticFolder> ChooseStaticFolderMatcher()
