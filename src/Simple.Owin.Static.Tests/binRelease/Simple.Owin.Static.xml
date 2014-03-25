@@ -1,0 +1,177 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Simple.Owin.Static</name>
+    </assembly>
+    <members>
+        <member name="T:Simple.Owin.Static.IMimeTypeResolver">
+            <summary>
+            Interface for classes that resolve MIME types from file names
+            </summary>
+        </member>
+        <member name="M:Simple.Owin.Static.IMimeTypeResolver.ForFile(System.String)">
+            <summary>
+            Gives the MIME type for a full path.
+            </summary>
+            <param name="path">The path.</param>
+            <returns>The MIME type, e.g. <c>text/html</c></returns>
+        </member>
+        <member name="M:Simple.Owin.Static.IMimeTypeResolver.ForExtension(System.String)">
+            <summary>
+            Gives the MIME type for a full path.
+            </summary>
+            <param name="extension">The extension, prefixed with a period.</param>
+            <returns>
+            The MIME type, e.g. <c>text/html</c>
+            </returns>
+        </member>
+        <member name="T:Simple.Owin.Static.MimeTypeResolver">
+            <summary>
+            Default MIME type resolver.
+            </summary>
+        </member>
+        <member name="F:Simple.Owin.Static.MimeTypeResolver.Instance">
+            <summary>
+            The singleton instance.
+            </summary>
+        </member>
+        <member name="M:Simple.Owin.Static.MimeTypeResolver.ForFile(System.String)">
+            <summary>
+            Gives the MIME type for a full path.
+            </summary>
+            <param name="path">The path.</param>
+            <returns>
+            The MIME type, e.g. <c>text/html</c>
+            </returns>
+        </member>
+        <member name="M:Simple.Owin.Static.MimeTypeResolver.ForExtension(System.String)">
+            <summary>
+            Gives the MIME type for a full path.
+            </summary>
+            <param name="extension">The extension, prefixed with a period.</param>
+            <returns>
+            The MIME type, e.g. <c>text/html</c>
+            </returns>
+        </member>
+        <member name="T:Simple.Owin.Static.Statics">
+            <summary>
+            Static entry-point for fluent API.
+            </summary>
+        </member>
+        <member name="M:Simple.Owin.Static.Statics.AddFile(System.String,System.String[])">
+            <summary>
+            Adds a file.
+            </summary>
+            <param name="path">The path to the file from the web application root.</param>
+            <param name="headers">The headers for the file.</param>
+            <returns>Current instance.</returns>
+        </member>
+        <member name="M:Simple.Owin.Static.Statics.AddFileAlias(System.String,System.String,System.String[])">
+            <summary>
+            Adds a file with an alias.
+            </summary>
+            <param name="path">The path to the file from the web application root.</param>
+            <param name="alias">The public alias to use for the file.</param>
+            <param name="headers">The headers for the file.</param>
+            <returns>Current instance.</returns>
+        </member>
+        <member name="M:Simple.Owin.Static.Statics.AddFolder(System.String,System.String[])">
+            <summary>
+            Adds a folder. All files below that folder will be accessible.
+            </summary>
+            <param name="path">The path to the folder from the web application root.</param>
+            <param name="headers">The headers for files below the folder.</param>
+            <returns>Current instance.</returns>
+        </member>
+        <member name="M:Simple.Owin.Static.Statics.AddFolderAlias(System.String,System.String,System.String[])">
+            <summary>
+            Adds a folder. All files below that folder will be accessible.
+            </summary>
+            <param name="path">The path to the folder from the web application root.</param>
+            <param name="alias">The public alias to use for the file.</param>
+            <param name="headers">The headers for files below the folder.</param>
+            <returns>Current instance.</returns>
+        </member>
+        <member name="M:Simple.Owin.Static.Statics.SetCommonHeaders(System.String[])">
+            <summary>
+            Sets the headers which will be added to all files served by the handler.
+            </summary>
+            <param name="headers">The headers.</param>
+            <returns>Current instance.</returns>
+        </member>
+        <member name="T:Simple.Owin.Static.StaticBuilder">
+            <summary>
+            For building static handlers using fluent API.
+            </summary>
+        </member>
+        <member name="M:Simple.Owin.Static.StaticBuilder.SetCommonHeaders(System.String[])">
+            <summary>
+            Sets the headers which will be added to all files served by the handler.
+            </summary>
+            <param name="headers">The headers.</param>
+            <returns>Current instance.</returns>
+        </member>
+        <member name="M:Simple.Owin.Static.StaticBuilder.UseMimeTypeResolver(Simple.Owin.Static.IMimeTypeResolver)">
+            <summary>
+            Specifies the MIME type resolver to be used.
+            </summary>
+            <param name="resolver">The resolver.</param>
+            <returns>Current instance.</returns>
+            <exception cref="T:System.ArgumentNullException">resolver</exception>
+        </member>
+        <member name="M:Simple.Owin.Static.StaticBuilder.AddFile(System.String,System.String[])">
+            <summary>
+            Adds a file.
+            </summary>
+            <param name="path">The path to the file from the web application root.</param>
+            <param name="headers">The headers for the file.</param>
+            <returns>Current instance.</returns>
+        </member>
+        <member name="M:Simple.Owin.Static.StaticBuilder.AddFileAlias(System.String,System.String,System.String[])">
+            <summary>
+            Adds a file with an alias.
+            </summary>
+            <param name="path">The path to the file from the web application root.</param>
+            <param name="alias">The public alias to use for the file.</param>
+            <param name="headers">The headers for the file.</param>
+            <returns>Current instance.</returns>
+        </member>
+        <member name="M:Simple.Owin.Static.StaticBuilder.AddFolder(System.String,System.String[])">
+            <summary>
+            Adds a folder. All files below that folder will be accessible.
+            </summary>
+            <param name="path">The path to the folder from the web application root.</param>
+            <param name="headers">The headers for files below the folder.</param>
+            <returns>Current instance.</returns>
+        </member>
+        <member name="M:Simple.Owin.Static.StaticBuilder.AddFolderAlias(System.String,System.String,System.String[])">
+            <summary>
+            Adds a folder. All files below that folder will be accessible.
+            </summary>
+            <param name="path">The path to the folder from the web application root.</param>
+            <param name="alias">The public alias to use for the file.</param>
+            <param name="headers">The headers for files below the folder.</param>
+            <returns>Current instance.</returns>
+        </member>
+        <member name="M:Simple.Owin.Static.StaticBuilder.Build">
+            <summary>
+            Builds the OWIN AppFunc.
+            </summary>
+            <returns>A delegate that can be passed to OWIN.</returns>
+        </member>
+        <member name="M:Simple.Owin.Static.StaticBuilder.op_Implicit(Simple.Owin.Static.StaticBuilder)~System.Func{System.Collections.Generic.IDictionary{System.String,System.Object},System.Func{System.Collections.Generic.IDictionary{System.String,System.Object},System.Threading.Tasks.Task},System.Threading.Tasks.Task}">
+            <summary>
+            Implicit cast to OWIN AppFunc delegate.
+            </summary>
+            <param name="builder">The builder.</param>
+            <returns>An OWIN AppFunc delegate.</returns>
+        </member>
+        <member name="M:Simple.Owin.Static.StaticBuilder.UseCharSet(System.Text.Encoding)">
+            <summary>
+            The encoding value to use for text media types
+            </summary>
+            <param name="encoding"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

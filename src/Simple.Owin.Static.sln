@@ -1,0 +1,53 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.20827.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simple.Owin.Static", "Simple.Owin.Static\Simple.Owin.Static.csproj", "{1CCE1A32-824C-49A1-9ED0-7D5FA854D5DF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simple.Owin.Static.Tests", "Simple.Owin.Static.Tests\Simple.Owin.Static.Tests.csproj", "{142ADC0A-37E1-4F4E-BF1B-FB0592DC51C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simple.Owin.Static.Sandbox", "Simple.Owin.Static.Sandbox\Simple.Owin.Static.Sandbox.csproj", "{504E822D-A932-41A6-AA84-52E6569E4C48}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simple.Owin.Static.SandboxWeb", "Simple.Owin.Static.SandboxWeb\Simple.Owin.Static.SandboxWeb.csproj", "{52B6720E-08CD-4405-8349-DB0D13BA0B8D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simple.Owin.Static40", "Simple.Owin.Static\Simple.Owin.Static40.csproj", "{A58C68D2-6E1A-4466-8E12-530FA21D374B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{A5F50E02-6A08-4898-9E3A-325AA88C7DE4}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1CCE1A32-824C-49A1-9ED0-7D5FA854D5DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CCE1A32-824C-49A1-9ED0-7D5FA854D5DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CCE1A32-824C-49A1-9ED0-7D5FA854D5DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CCE1A32-824C-49A1-9ED0-7D5FA854D5DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{142ADC0A-37E1-4F4E-BF1B-FB0592DC51C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{142ADC0A-37E1-4F4E-BF1B-FB0592DC51C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{142ADC0A-37E1-4F4E-BF1B-FB0592DC51C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{142ADC0A-37E1-4F4E-BF1B-FB0592DC51C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{504E822D-A932-41A6-AA84-52E6569E4C48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{504E822D-A932-41A6-AA84-52E6569E4C48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{504E822D-A932-41A6-AA84-52E6569E4C48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{504E822D-A932-41A6-AA84-52E6569E4C48}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52B6720E-08CD-4405-8349-DB0D13BA0B8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52B6720E-08CD-4405-8349-DB0D13BA0B8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52B6720E-08CD-4405-8349-DB0D13BA0B8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52B6720E-08CD-4405-8349-DB0D13BA0B8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A58C68D2-6E1A-4466-8E12-530FA21D374B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A58C68D2-6E1A-4466-8E12-530FA21D374B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A58C68D2-6E1A-4466-8E12-530FA21D374B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A58C68D2-6E1A-4466-8E12-530FA21D374B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
