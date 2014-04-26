@@ -41,10 +41,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Fix">
-      <HintPath>..\packages\Fix.0.5.0.50033\lib\net40\Fix.dll</HintPath>
+      <HintPath>..\packages\Fix.0.8.0-pre\lib\net45\Fix.dll</HintPath>
     </Reference>
     <Reference Include="Fix.AspNet">
-      <HintPath>..\packages\Fix.AspNet.0.5.0.50033\lib\net40\Fix.AspNet.dll</HintPath>
+      <HintPath>..\packages\Fix.AspNet.0.8.0-pre\lib\net45\Fix.AspNet.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Web.DynamicData" />
@@ -116,7 +116,6 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

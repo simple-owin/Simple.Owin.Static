@@ -14,8 +14,8 @@
                 const string path = "/Files/index.html";
                 var env = CreateEnv(path, stream);
 
-                var app = Statics.AddFile(path, "X-Test: PASS").Build();
-                app(env, Complete).Wait();
+                var app = Statics.AddFile(path, "X-Test: PASS").Build()(Complete);
+                app(env).Wait();
 
                 Assert.Contains("PASS", GetHeader(env, "X-Test"));
             }
@@ -29,8 +29,8 @@
                 const string path = "/Files/index.html";
                 var env = CreateEnv(path, stream);
 
-                var app = Statics.SetCommonHeaders("X-Test: PASS").AddFile(path).Build();
-                app(env, Complete).Wait();
+                var app = Statics.SetCommonHeaders("X-Test: PASS").AddFile(path).Build()(Complete);
+                app(env).Wait();
 
                 Assert.Contains("PASS", GetHeader(env, "X-Test"));
             }
@@ -44,8 +44,8 @@
                 const string path = "/Files/index.html";
                 var env = CreateEnv(path, stream);
 
-                var app = Statics.SetCommonHeaders("X-Common: PASS").AddFile(path, "X-File: PASS").Build();
-                app(env, Complete).Wait();
+                var app = Statics.SetCommonHeaders("X-Common: PASS").AddFile(path, "X-File: PASS").Build()(Complete);
+                app(env).Wait();
 
                 Assert.Contains("PASS", GetHeader(env, "X-Common"));
                 Assert.Contains("PASS", GetHeader(env, "X-File"));
@@ -60,8 +60,8 @@
                 const string path = "/Files/index.html";
                 var env = CreateEnv(path, stream);
 
-                var app = Statics.SetCommonHeaders("X-Common: FAIL").AddFile(path, "X-Common: PASS").Build();
-                app(env, Complete).Wait();
+                var app = Statics.SetCommonHeaders("X-Common: FAIL").AddFile(path, "X-Common: PASS").Build()(Complete);
+                app(env).Wait();
 
                 Assert.Contains("PASS", GetHeader(env, "X-Common"));
             }

@@ -16,8 +16,8 @@
                 const string path = "/Files/index.html";
                 var env = CreateEnv(path, stream);
 
-                var app = Statics.AddFolder("/Files").Build();
-                app(env, Complete).Wait();
+                var app = Statics.AddFolder("/Files").Build()(Complete);
+                app(env).Wait();
 
                 stream.Position = 0;
                 var text = ReadStream(stream);
@@ -33,8 +33,8 @@
                 const string path = "/index.html";
                 var env = CreateEnv(path, stream);
 
-                var app = Statics.AddFolderAlias("/Files", "/").Build();
-                app(env, Complete).Wait();
+                var app = Statics.AddFolderAlias("/Files", "/").Build()(Complete);
+                app(env).Wait();
 
                 stream.Position = 0;
                 var text = ReadStream(stream);

@@ -159,7 +159,7 @@
             </summary>
             <returns>A delegate that can be passed to OWIN.</returns>
         </member>
-        <member name="M:Simple.Owin.Static.StaticBuilder.op_Implicit(Simple.Owin.Static.StaticBuilder)~System.Func{System.Collections.Generic.IDictionary{System.String,System.Object},System.Func{System.Collections.Generic.IDictionary{System.String,System.Object},System.Threading.Tasks.Task},System.Threading.Tasks.Task}">
+        <member name="M:Simple.Owin.Static.StaticBuilder.op_Implicit(Simple.Owin.Static.StaticBuilder)~System.Func{System.Func{System.Collections.Generic.IDictionary{System.String,System.Object},System.Threading.Tasks.Task},System.Func{System.Collections.Generic.IDictionary{System.String,System.Object},System.Threading.Tasks.Task}}">
             <summary>
             Implicit cast to OWIN AppFunc delegate.
             </summary>

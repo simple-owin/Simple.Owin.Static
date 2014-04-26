@@ -125,12 +125,12 @@ task :publocal => [:full] do
 	raise "Environment variable \"APIURL_LOCAL\" must be a valid nuget server url." unless !NUGET_APIURL_LOCAL.nil?
 	raise "Environment variable \"APIKEY_LOCAL\" must be that of your nuget api key." unless !NUGET_APIKEY_LOCAL.nil?
 
-	PublishNugets BUILD_NUMBER, NUGET_APIURL_LOCAL, NUGET_APIKEY_LOCAL, SYMBOL_APIURL_LOCAL
+	PublishNugets NUGET_PACKAGE_VERSION, NUGET_APIURL_LOCAL, NUGET_APIKEY_LOCAL, SYMBOL_APIURL_LOCAL
 end
 
 desc "Build + Tests + Specs + Package"
-task :package => [:full] do
-	PackageNugets BUILD_NUMBER
+task :package => [:build] do
+	PackageNugets NUGET_PACKAGE_VERSION
 end
 
 desc "Build + Tests + Specs + Publish (remote)"
@@ -145,7 +145,7 @@ task :publish => [:full] do
 		raise "Publish aborted." unless response.downcase.eql?("y")
 	end
 
-	PublishNugets BUILD_NUMBER, NUGET_APIURL_REMOTE, NUGET_APIKEY_REMOTE, SYMBOL_APIURL_REMOTE
+	PublishNugets NUGET_PACKAGE_VERSION, NUGET_APIURL_REMOTE, NUGET_APIKEY_REMOTE, SYMBOL_APIURL_REMOTE
 
     Rake::Task[:tag].invoke()
 end

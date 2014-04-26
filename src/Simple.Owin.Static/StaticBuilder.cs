@@ -1,12 +1,14 @@
 ﻿// ReSharper disable once CheckNamespace
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
 namespace Simple.Owin.Static
 {
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
+    using AppFunc = Func<IDictionary<string,object>, Task>;
 
     /// <summary>
     /// For building static handlers using fluent API.
@@ -84,6 +86,9 @@ namespace Simple.Owin.Static
         /// <returns>Current instance.</returns>
         public StaticBuilder AddFileAlias(string path, string alias, params string[] headers)
         {
+            alias = alias.TrimEnd('/');
+            _files[alias] = new StaticFile(path, alias, ParseHeaders(headers));
+            alias += '/';
             _files[alias] = new StaticFile(path, alias, ParseHeaders(headers));
             return this;
         }
@@ -129,15 +134,15 @@ namespace Simple.Owin.Static
         /// Builds the OWIN AppFunc.
         /// </summary>
         /// <returns>A delegate that can be passed to OWIN.</returns>
-        public Func<IDictionary<string, object>, Func<IDictionary<string, object>, Task>, Task> Build()
+        public Func<AppFunc, AppFunc> Build()
         {
             if (_files.Count == 0 && _folders.Count == 0)
             {
-                return (env, next) => next(env);
+                return next => next;
             }
             if (_files.Count > 0 && _folders.Count == 0)
             {
-                return (envDict, next) =>
+                return next => envDict =>
                 {
                     var env = new OwinEnv(envDict);
                     var path = env.RequestPath ?? "";
@@ -149,7 +154,7 @@ namespace Simple.Owin.Static
 
             if (_files.Count == 0) // Then folders must have something...
             {
-                return (envDict, next) =>
+                return next => envDict =>
                 {
                     var env = new OwinEnv(envDict);
                     var path = env.RequestPath ?? "";
@@ -157,7 +162,7 @@ namespace Simple.Owin.Static
                 };
             }
 
-            return (envDict, next) =>
+            return next => envDict =>
             {
                 var env = new OwinEnv(envDict);
                 var path = env.RequestPath ?? "";
@@ -264,8 +269,7 @@ namespace Simple.Owin.Static
         /// </summary>
         /// <param name="builder">The builder.</param>
         /// <returns>An OWIN AppFunc delegate.</returns>
-        public static implicit operator Func<IDictionary<string, object>, Func<IDictionary<string, object>, Task>, Task>
-            (StaticBuilder builder)
+        public static implicit operator Func<AppFunc, AppFunc>(StaticBuilder builder)
         {
             return builder.Build();
         }

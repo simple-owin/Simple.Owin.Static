@@ -25,7 +25,7 @@
                     var method = hostingEnvironment.GetMethod("MapPath");
 #if(NET40)
                     var func =
-                        (Func<string, string>) Delegate.CreateDelegate(hostingEnvironment, method);
+                        (Func<string, string>) Delegate.CreateDelegate(typeof(Func<string,string>), method);
 #else
                     var func =
                         (Func<string, string>)

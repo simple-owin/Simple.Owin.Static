@@ -44,3 +44,11 @@ src/packages/*
 !src/packages/repositories.config
 artifacts
 *.ncrunchsolution
+src/Simple.Owin.Static.Tests/binRelease/Simple.Owin.Static.Tests.dll
+src/Simple.Owin.Static.Tests/binRelease/Simple.Owin.Static.Tests.pdb
+src/Simple.Owin.Static.Tests/binRelease/Simple.Owin.Static.dll
+src/Simple.Owin.Static.Tests/binRelease/Simple.Owin.Static.pdb
+src/Simple.Owin.Static.Tests/binRelease/xunit.dll
+src/Simple.Owin.Static.sln.DotSettings.user
+src/Simple.Owin.Static.sln.ide
+
